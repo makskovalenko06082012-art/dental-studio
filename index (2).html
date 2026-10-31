@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Дентал Студия — демонстрационный сайт стоматологической клиники. Информация о стоматологических услугах и способах записи.">
+  <meta name="theme-color" content="#f7fbfd">
+  <title>Дентал Студия — стоматология с вниманием к деталям</title>
+  <style>
+    :root {
+      --ink: #18313d;
+      --muted: #667b85;
+      --blue: #8fc8dc;
+      --blue-dark: #397e98;
+      --pale: #edf7fa;
+      --line: #e3edf0;
+      --white: #fff;
+      --radius: 22px;
+      --shadow: 0 18px 55px rgba(35, 78, 94, .09);
+      --max: 1160px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; color: var(--ink); background: var(--white);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    body.menu-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; color: var(--blue-dark);
+      font-size: .76rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.12; letter-spacing: -.035em; }
+    h1 { max-width: 720px; margin: 20px 0; font-size: clamp(2.7rem, 6.3vw, 5.35rem); font-weight: 650; }
+    h2 { margin: 14px 0 18px; font-size: clamp(2rem, 4vw, 3.35rem); font-weight: 650; }
+    h3 { font-size: 1.22rem; font-weight: 650; }
+    .lead { max-width: 610px; color: var(--muted); font-size: clamp(1.03rem, 1.8vw, 1.18rem); }
+    .section { padding: 104px 0; }
+    .section-soft { background: #f7fbfc; }
+    .section-head { max-width: 700px; margin-bottom: 42px; }
+    .section-head p { max-width: 570px; color: var(--muted); }
+    .btn {
+      display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 23px; border: 1px solid transparent; border-radius: 999px;
+      background: var(--ink); color: white; font-weight: 650; cursor: pointer;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); background: #294c5b; box-shadow: 0 9px 22px rgba(24,49,61,.14); }
+    .btn-light { color: var(--ink); background: white; border-color: var(--line); }
+    .btn-light:hover { background: var(--pale); }
+    .btn-small { min-height: 43px; padding-inline: 18px; font-size: .92rem; }
+    .text-link { display: inline-flex; gap: 8px; align-items: center; color: var(--blue-dark); font-weight: 700; }
+    .text-link:hover { text-decoration: underline; }
+    :focus-visible { outline: 3px solid #73b8d0; outline-offset: 3px; }
+    /* Header */
+    .header {
+      position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.91);
+      border-bottom: 1px solid rgba(227,237,240,.85); backdrop-filter: blur(16px);
+    }
+    .nav { display: flex; min-height: 76px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 1.05rem; font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
+    .brand-mark {
+      display: grid; width: 38px; height: 38px; place-items: center; border-radius: 13px;
+      color: var(--blue-dark); background: var(--pale);
+    }
+    .brand-mark svg { width: 23px; height: 23px; }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.1vw, 27px); }
+    .nav-links a { color: #526873; font-size: .9rem; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: var(--blue-dark); }
+    .nav-actions { display: flex; align-items: center; gap: 13px; }
+    .menu-toggle {
+      display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%;
+      background: white; color: var(--ink); cursor: pointer;
+    }
+    /* Hero */
+    .hero { padding: 65px 0 82px; overflow: hidden; background: linear-gradient(115deg, #fff 45%, #f3fafc 100%); }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 50px; align-items: center; }
+    .hero-copy { padding: 30px 0; }
+    .hero-copy h1 span { color: var(--blue-dark); }
+    .hero-copy .lead { margin-bottom: 30px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { display: flex; align-items: center; gap: 12px; margin-top: 34px; color: var(--muted); font-size: .9rem; }
+    .note-dot { width: 9px; height: 9px; border-radius: 50%; background: #79b9a4; box-shadow: 0 0 0 5px #e8f5f0; }
+    .hero-visual { position: relative; min-height: 500px; }
+    .hero-photo {
+      position: absolute; inset: 0 28px 22px 0; overflow: hidden; border-radius: 34px;
+      background: #dcecf0; box-shadow: var(--shadow);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-float {
+      position: absolute; right: 0; bottom: 0; width: min(250px, 68%); padding: 21px;
+      border: 1px solid rgba(255,255,255,.8); border-radius: 20px; background: rgba(255,255,255,.96);
+      box-shadow: var(--shadow);
+    }
+    .hero-float strong { display: block; margin-bottom: 5px; font-size: 1.05rem; }
+    .hero-float span { color: var(--muted); font-size: .88rem; }
+    /* Intro strip */
+    .trust-strip { padding: 24px 0; border-block: 1px solid var(--line); }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    .trust-item { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: .92rem; }
+    .trust-icon { display: grid; width: 42px; height: 42px; flex: 0 0 auto; place-items: center; border-radius: 14px; background: var(--pale); color: var(--blue-dark); font-size: 1.15rem; }
+    /* About */
+    .about-grid { display: grid; grid-template-columns: .95fr 1.05fr; align-items: center; gap: 72px; }
+    .about-image { overflow: hidden; min-height: 440px; border-radius: 28px; background: var(--pale); }
+    .about-image img { width: 100%; height: 100%; min-height: 440px; object-fit: cover; }
+    .about-copy p { color: var(--muted); }
+    .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+    .about-point { padding: 17px; border: 1px solid var(--line); border-radius: 16px; font-weight: 650; font-size: .93rem; }
+    .about-point span { display: block; margin-top: 4px; color: var(--muted); font-size: .82rem; font-weight: 400; }
+    /* Services */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card {
+      display: flex; min-height: 245px; flex-direction: column; align-items: flex-start;
+      padding: 27px; border: 1px solid var(--line); border-radius: var(--radius); background: white;
+      transition: transform .22s, box-shadow .22s, border-color .22s;
+    }
+    .service-card:hover { transform: translateY(-5px); border-color: #c7e2eb; box-shadow: var(--shadow); }
+    .service-icon { display: grid; width: 48px; height: 48px; margin-bottom: 24px; place-items: center; border-radius: 15px; background: var(--pale); color: var(--blue-dark); font-size: 1.35rem; }
+    .service-card p { margin-bottom: 20px; color: var(--muted); font-size: .92rem; }
+    .service-card .text-link { margin-top: auto; font-size: .9rem; }
+    /* Prices */
+    .price-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+    .price-aside { position: sticky; top: 110px; }
+    .price-aside p { color: var(--muted); }
+    .price-list { border-top: 1px solid var(--line); }
+    .price-row { display: flex; justify-content: space-between; gap: 20px; padding: 21px 0; border-bottom: 1px solid var(--line); }
+    .price-row span:first-child { font-weight: 650; }
+    .price-row span:last-child { color: var(--blue-dark); text-align: right; font-weight: 700; white-space: nowrap; }
+    .price-disclaimer { margin-top: 17px; color: var(--muted); font-size: .84rem; }
+    /* Team */
+    .team-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+    .team-photo { height: 275px; overflow: hidden; background: var(--pale); }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-info { padding: 21px; }
+    .team-info p { margin-bottom: 0; color: var(--muted); font-size: .9rem; }
+    .demo-label { display: inline-block; margin-bottom: 10px; padding: 5px 9px; border-radius: 7px; background: #fff5df; color: #8a641e; font-size: .72rem; font-weight: 750; }
+    /* Advantages */
+    .adv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+    .adv-card { padding: 23px; border: 1px solid var(--line); border-radius: 18px; background: white; }
+    .adv-card .service-icon { margin-bottom: 20px; }
+    .adv-card p { margin-bottom: 0; color: var(--muted); font-size: .88rem; }
+    /* Reviews */
+    .review-note { padding: 22px; border: 1px dashed #d4b76d; border-radius: 16px; background: #fffaf0; color: #715b2c; }
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; }
+    .contact-details { display: grid; gap: 17px; margin-top: 28px; }
+    .contact-detail { display: flex; align-items: flex-start; gap: 13px; }
+    .contact-detail .service-icon { width: 42px; height: 42px; margin: 0; flex: 0 0 auto; font-size: 1rem; }
+    .contact-detail strong { display: block; margin-bottom: 2px; }
+    .contact-detail span { color: var(--muted); font-size: .9rem; }
+    .form-card { padding: 31px; border: 1px solid var(--line); border-radius: 25px; background: white; box-shadow: var(--shadow); }
+    .form-card h3 { margin-bottom: 8px; font-size: 1.5rem; }
+    .form-card > p { color: var(--muted); font-size: .91rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .field { display: grid; gap: 7px; margin-bottom: 15px; }
+    .field-full { grid-column: 1 / -1; }
+    .field label { font-size: .86rem; font-weight: 700; }
+    .field input, .field textarea {
+      width: 100%; min-height: 49px; padding: 12px 14px; border: 1px solid #dce7eb;
+      border-radius: 12px; background: #fbfdfe; color: var(--ink); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .field textarea { min-height: 95px; resize: vertical; }
+    .field input:focus, .field textarea:focus { border-color: #83bfd2; box-shadow: 0 0 0 3px #eaf6fa; }
+    .consent { display: flex; align-items: flex-start; gap: 10px; margin: 4px 0 18px; color: var(--muted); font-size: .8rem; }
+    .consent input { width: 17px; height: 17px; margin-top: 2px; accent-color: var(--blue-dark); }
+    .consent a { color: var(--blue-dark); text-decoration: underline; }
+    .form-message { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 11px; font-size: .9rem; }
+    .form-message.show { display: block; }
+    .form-message.success { background: #eaf7f0; color: #236346; }
+    .form-message.error { background: #fff0ef; color: #9a342c; }
+    .privacy-reminder { margin-top: 13px; color: var(--muted); font-size: .76rem; }
+    /* Footer and modal */
+    .footer { padding: 42px 0 25px; background: #18313d; color: white; }
+    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; padding-bottom: 30px; }
+    .footer .brand-mark { background: rgba(255,255,255,.12); color: #b7e3ef; }
+    .footer p { max-width: 390px; margin: 14px 0 0; color: #b7c7cd; font-size: .88rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; color: #d4e0e4; font-size: .87rem; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.15); color: #a8bbc2; font-size: .78rem; }
+    .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 20px; background: rgba(10,28,36,.58); }
+    .modal-backdrop.open { display: flex; }
+    .modal { width: min(650px, 100%); max-height: 82vh; overflow: auto; padding: 28px; border-radius: 20px; background: white; box-shadow: var(--shadow); }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .modal-close { width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: white; cursor: pointer; }
+    .modal p, .modal li { color: var(--muted); font-size: .91rem; }
+    .disclaimer { padding: 13px 15px; border-left: 3px solid #d8ad50; background: #fffaf0; color: #715b2c; font-size: .82rem; }
+    /* Responsive */
+    @media (max-width: 960px) {
+      .nav-links { gap: 13px; }
+      .nav-links a { font-size: .82rem; }
+      .nav-actions .btn { display: none; }
+      .hero-grid { gap: 28px; }
+      .hero-visual { min-height: 430px; }
+      .about-grid { gap: 38px; }
+      .adv-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .container { width: min(100% - 32px, var(--max)); }
+      .section { padding: 76px 0; }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links {
+        display: none; position: fixed; inset: 68px 0 0; z-index: 60; flex-direction: column;
+        align-items: stretch; gap: 0; padding: 18px 24px 30px; background: white;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 15px 5px; border-bottom: 1px solid var(--line); font-size: 1rem; }
+      .hero { padding: 38px 0 55px; }
+      .hero-grid, .about-grid, .price-wrap, .contact-grid { grid-template-columns: 1fr; }
+      .hero-copy { padding: 8px 0 0; }
+      .hero-visual { min-height: 390px; }
+      .hero-photo { inset: 0 20px 18px 0; }
+      .trust-grid { grid-template-columns: 1fr; gap: 15px; }
+      .about-image, .about-image img { min-height: 320px; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .price-aside { position: static; }
+      .footer-top, .footer-bottom { flex-direction: column; }
+    }
+    @media (max-width: 520px) {
+      h1 { font-size: clamp(2.55rem, 13vw, 3.7rem); }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { width: 100%; }
+      .hero-visual { min-height: 330px; }
+      .hero-float { padding: 15px; }
+      .cards, .adv-grid, .about-points, .form-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 215px; }
+      .team-photo { height: 240px; }
+      .form-card { padding: 22px 18px; }
+      .field-full { grid-column: auto; }
+      .price-row { font-size: .91rem; }
+      .footer-links { flex-direction: column; gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Дентал Студия — на главную">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 3.8c1.7-.9 3.2.1 4.8.1s3.1-1 4.8-.1c2.2 1.2 2.6 4 .9 6.3-1.1 1.5-1.4 5.4-2.7 8.1-.8 1.7-2.2 1.7-2.7-.1l-.3-1.2c-.3-1.1-1.7-1.1-2 0l-.3 1.2c-.5 1.8-1.9 1.8-2.7.1-1.3-2.7-1.6-6.6-2.7-8.1-1.7-2.3-1.3-5.1.9-6.3Z"/></svg>
+        </span>
+        <span>Дентал Студия</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+        <a href="#about">О клинике</a>
+        <a href="#services">Услуги</a>
+        <a href="#prices">Цены</a>
+        <a href="#team">Специалисты</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-small" href="#appointment">Записаться</a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="navLinks">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Демонстрационный проект</span>
+          <h1>Забота о здоровье <span>начинается</span> с улыбки</h1>
+          <p class="lead">Современный подход к стоматологии, внимательное отношение и понятный план лечения. Познакомьтесь с демонстрационной концепцией клиники.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#appointment">Обсудить запись <span aria-hidden="true">→</span></a>
+            <a class="btn btn-light" href="#services">Посмотреть услуги</a>
+          </div>
+          <div class="hero-note"><span class="note-dot"></span> Информация на странице носит демонстрационный характер</div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=85" alt="Светлый современный стоматологический кабинет" fetchpriority="high">
+          </div>
+          <div class="hero-float"><strong>В центре внимания — человек</strong><span>Объясняем этапы лечения и отвечаем на вопросы до начала процедур.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Принципы работы">
+      <div class="container trust-grid">
+        <div class="trust-item"><span class="trust-icon">♡</span><span>Внимательное отношение к каждому пациенту</span></div>
+        <div class="trust-item"><span class="trust-icon">⌁</span><span>Понятное объяснение плана лечения</span></div>
+        <div class="trust-item"><span class="trust-icon">＋</span><span>Индивидуальный подход к консультации</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1000&q=85" alt="Интерьер стоматологической клиники" loading="lazy">
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">О клинике</span>
+          <h2>Спокойная атмосфера и ясный план действий</h2>
+          <p>«Дентал Студия» — условное название учебного проекта. Здесь показано, как может выглядеть сайт стоматологии: с понятной структурой, доступной информацией и удобным способом связаться с клиникой.</p>
+          <p>Перед публикацией для реальной организации этот текст необходимо заменить проверенной информацией о клинике, её лицензии, специалистах, оборудовании и фактических процессах работы.</p>
+          <div class="about-points">
+            <div class="about-point">Понятная коммуникация<span>Без сложных формулировок</span></div>
+            <div class="about-point">Планирование<span>Обсуждение этапов заранее</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="services">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Направления</span>
+          <h2>Стоматологические услуги</h2>
+          <p>Примеры категорий для демонстрации структуры. Перечень услуг и возможность их оказания должны быть подтверждены конкретной клиникой.</p>
+        </div>
+        <div class="cards">
+          <article class="service-card"><span class="service-icon">✧</span><h3>Профилактика</h3><p>Профилактические осмотры и профессиональная гигиена полости рта.</p><a class="text-link" href="#appointment">Уточнить информацию →</a></article>
+          <article class="service-card"><span class="service-icon">◇</span><h3>Терапия</h3><p>Консультации по вопросам лечения кариеса и других заболеваний зубов.</p><a class="text-link" href="#appointment">Уточнить информацию →</a></article>
+          <article class="service-card"><span class="service-icon">⌁</span><h3>Ортопедия</h3><p>Консультации по восстановлению формы и функции зубного ряда.</p><a class="text-link" href="#appointment">Уточнить информацию →</a></article>
+          <article class="service-card"><span class="service-icon">＋</span><h3>Хирургия</h3><p>Информация о хирургическом направлении и предварительной консультации.</p><a class="text-link" href="#appointment">Уточнить информацию →</a></article>
+          <article class="service-card"><span class="service-icon">⌖</span><h3>Имплантация</h3><p>Первичная консультация по возможным вариантам восстановления зубов.</p><a class="text-link" href="#appointment">Уточнить информацию →</a></article>
+          <article class="service-card"><span class="service-icon">☼</span><h3>Эстетическая стоматология</h3><p>Обсуждение эстетических задач и возможных вариантов коррекции улыбки.</p><a class="text-link" href="#appointment">Уточнить информацию →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prices">
+      <div class="container price-wrap">
+        <div class="price-aside">
+          <span class="eyebrow">Стоимость</span>
+          <h2>Прозрачность начинается с разговора</h2>
+          <p>Стоимость зависит от клинической ситуации, объёма работы и выбранных материалов. Запросите у реальной клиники актуальный прайс перед размещением цен.</p>
+          <a class="btn btn-light" href="#appointment">Задать вопрос</a>
+        </div>
+        <div>
+          <div class="price-list">
+            <div class="price-row"><span>Первичная консультация</span><span>Уточнить в клинике</span></div>
+            <div class="price-row"><span>Профессиональная гигиена</span><span>Уточнить в клинике</span></div>
+            <div class="price-row"><span>Лечение кариеса</span><span>Уточнить в клинике</span></div>
+            <div class="price-row"><span>Рентгенологическое исследование</span><span>Уточнить в клинике</span></div>
+            <div class="price-row"><span>Консультация ортопеда</span><span>Уточнить в клинике</span></div>
+          </div>
+          <p class="price-disclaimer">Демонстрационный прайс: цены намеренно не указаны. Не является публичной офертой или действующим прейскурантом.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="team">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Команда</span>
+          <h2>Специалисты клиники</h2>
+          <p>В реальном проекте здесь размещаются подтверждённые сведения о медицинских работниках с их согласия.</p>
+        </div>
+        <div class="cards">
+          <article class="team-card">
+            <div class="team-photo"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80" alt="Портрет медицинского специалиста для демонстрационного макета" loading="lazy"></div>
+            <div class="team-info"><span class="demo-label">Демонстрационный профиль</span><h3>Имя специалиста</h3><p>Должность, образование и стаж — добавить после документальной проверки.</p></div>
+          </article>
+          <article class="team-card">
+            <div class="team-photo"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80" alt="Портрет медицинского специалиста для демонстрационного макета" loading="lazy"></div>
+            <div class="team-info"><span class="demo-label">Демонстрационный профиль</span><h3>Имя специалиста</h3><p>Должность, образование и стаж — добавить после документальной проверки.</p></div>
+          </article>
+          <article class="team-card">
+            <div class="team-photo"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80" alt="Портрет медицинского специалиста для демонстрационного макета" loading="lazy"></div>
+            <div class="team-info"><span class="demo-label">Демонстрационный профиль</span><h3>Имя специалиста</h3><p>Должность, образование и стаж — добавить после документальной проверки.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="advantages">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Наш подход</span>
+          <h2>Что важно в общении с клиникой</h2>
+        </div>
+        <div class="adv-grid">
+          <article class="adv-card"><span class="service-icon">♡</span><h3>Внимание</h3><p>Возможность спокойно задать вопросы и обсудить свои ожидания.</p></article>
+          <article class="adv-card"><span class="service-icon">⌘</span><h3>Понятность</h3><p>Объяснение предложенных этапов и вариантов лечения.</p></article>
+          <article class="adv-card"><span class="service-icon">◷</span><h3>Организация</h3><p>Предварительное согласование времени приёма.</p></article>
+          <article class="adv-card"><span class="service-icon">＋</span><h3>Информирование</h3><p>Обсуждение стоимости и условий до начала процедур.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Мнение пациентов</span>
+          <h2>Отзывы</h2>
+        </div>
+        <div class="review-note"><strong>Раздел подготовлен для настоящих отзывов.</strong><br>В демонстрационной версии отзывы не публикуются, чтобы не создавать впечатление, будто вымышленные истории принадлежат реальным пациентам. Добавляйте только подлинные отзывы с соблюдением законодательства и прав авторов.</div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts">
+      <div class="container contact-grid">
+        <div>
+          <span class="eyebrow">Контакты</span>
+          <h2>Будем рады ответить на ваши вопросы</h2>
+          <p class="lead">Укажите здесь подтверждённые контакты клиники, адрес и режим работы. Сейчас это демонстрационный макет.</p>
+          <div class="contact-details">
+            <div class="contact-detail"><span class="service-icon">⌖</span><div><strong>Адрес</strong><span>Добавить фактический адрес клиники</span></div></div>
+            <div class="contact-detail"><span class="service-icon">☎</span><div><strong>Телефон</strong><span>Добавить подтверждённый номер телефона</span></div></div>
+            <div class="contact-detail"><span class="service-icon">◷</span><div><strong>Режим работы</strong><span>Указать актуальное расписание</span></div></div>
+          </div>
+        </div>
+        <div class="form-card" id="appointment">
+          <h3>Запрос на обратную связь</h3>
+          <p>Демонстрационная форма. Данные никуда не отправляются и не сохраняются.</p>
+          <form id="contactForm" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">Ваше имя</label>
+                <input id="name" name="name" type="text" autocomplete="name" maxlength="60" placeholder="Как к вам обращаться" required>
+              </div>
+              <div class="field">
+                <label for="phone">Телефон</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" placeholder="+7 (___) ___-__-__" required>
+              </div>
+              <div class="field field-full">
+                <label for="message">Комментарий (необязательно)</label>
+                <textarea id="message" name="message" maxlength="300" placeholder="Не указывайте здесь диагнозы и другие медицинские сведения"></textarea>
+              </div>
+            </div>
+            <label class="consent" for="consent">
+              <input id="consent" type="checkbox" required>
+              <span>Я ознакомился(ась) с <a href="#privacy" class="privacy-link">информацией об обработке данных</a>. Для демонстрации согласие не передаётся оператору.</span>
+            </label>
+            <button class="btn" type="submit">Проверить форму <span aria-hidden="true">→</span></button>
+            <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+            <p class="privacy-reminder">Не вводите реальные персональные или медицинские данные: форма работает только локально в браузере.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a class="brand" href="#home"><span class="brand-mark">✧</span><span>Дентал Студия</span></a>
+          <p>Учебный демонстрационный сайт. Не является сайтом действующей медицинской организации.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Услуги</a><a href="#prices">Цены</a><a href="#contacts">Контакты</a>
+          <a href="#privacy" class="privacy-link">Обработка данных</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Дентал Студия — демонстрационный проект</span>
+        <span>Сведения требуют проверки перед коммерческим использованием</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+    <div class="modal">
+      <div class="modal-head"><h3 id="privacyTitle">Информация об обработке данных</h3><button class="modal-close" id="modalClose" type="button" aria-label="Закрыть">✕</button></div>
+      <p class="disclaimer">Это демонстрационный информационный блок, а не готовая политика оператора персональных данных и не юридическая консультация.</p>
+      <p>В этой учебной версии сайта форма не отправляет введённые значения на сервер, не передаёт их третьим лицам и не сохраняет их в базе данных. После проверки поля очищаются.</p>
+      <p>Перед запуском реального сайта владелец клиники должен определить цели и правовые основания обработки, состав данных, сроки хранения, порядок отзыва согласия, меры защиты и фактических получателей данных.</p>
+      <p>Также необходимо отдельно подготовить и проверить применимые документы и процедуры, в том числе:</p>
+      <ul>
+        <li>политику оператора в отношении обработки персональных данных;</li>
+        <li>корректную форму согласия на обработку персональных данных, когда оно требуется;</li>
+        <li>сведения об операторе и способы обращения субъектов данных;</li>
+        <li>процедуры по требованиям Федерального закона № 152-ФЗ, включая локализацию и уведомления Роскомнадзора, если применимо;</li>
+        <li>отдельную оценку необходимости обработки специальных категорий данных о здоровье.</li>
+      </ul>
+      <p>Не собирайте через обычную форму сайта диагнозы, историю болезни, результаты анализов и иные медицинские сведения без отдельной правовой и технической оценки.</p>
+      <button class="btn btn-small" id="modalOk" type="button">Понятно</button>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    function closeMenu() {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Открыть меню");
+      document.body.classList.remove("menu-open");
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Закрыть меню" : "Открыть меню");
+      document.body.classList.toggle("menu-open", isOpen);
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) closeMenu();
+    });
+
+    // Demo form: validates locally and deliberately does not send or store data.
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+    const phoneInput = document.getElementById("phone");
+
+    function showFormMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.className = "form-message show " + type;
+    }
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      formMessage.className = "form-message";
+
+      const name = document.getElementById("name").value.trim();
+      const phone = phoneInput.value.trim();
+      const consent = document.getElementById("consent").checked;
+      const digits = phone.replace(/\D/g, "");
+
+      if (name.length < 2) {
+        showFormMessage("Пожалуйста, укажите имя (не менее 2 символов).", "error");
+        document.getElementById("name").focus();
+        return;
+      }
+      if (digits.length < 10 || digits.length > 15) {
+        showFormMessage("Проверьте номер телефона: в нём должно быть от 10 до 15 цифр.", "error");
+        phoneInput.focus();
+        return;
+      }
+      if (!consent) {
+        showFormMessage("Для демонстрации отметьте, что ознакомились с информацией об обработке данных.", "error");
+        document.getElementById("consent").focus();
+        return;
+      }
+
+      showFormMessage("Проверка пройдена. Это демонстрация: заявка НЕ отправлена, данные НЕ сохранены.", "success");
+      contactForm.reset();
+    });
+
+    // Privacy information modal
+    const privacyModal = document.getElementById("privacyModal");
+    const modalClose = document.getElementById("modalClose");
+    const modalOk = document.getElementById("modalOk");
+
+    function openPrivacyModal(event) {
+      event.preventDefault();
+      privacyModal.classList.add("open");
+      modalClose.focus();
+    }
+    function closePrivacyModal() {
+      privacyModal.classList.remove("open");
+    }
+
+    document.querySelectorAll(".privacy-link").forEach((link) => {
+      link.addEventListener("click", openPrivacyModal);
+    });
+    modalClose.addEventListener("click", closePrivacyModal);
+    modalOk.addEventListener("click", closePrivacyModal);
+    privacyModal.addEventListener("click", (event) => {
+      if (event.target === privacyModal) closePrivacyModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closePrivacyModal();
+        closeMenu();
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
